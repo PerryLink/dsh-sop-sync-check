@@ -1,0 +1,186 @@
+# 作业规程与 FMEA／控制计划一致性核对 规则库
+#
+# 规则数据与代码分离：替换本文件即可切换规则集版本，无需改动 TypeScript。
+#
+# 条款引用纪律（由 shared/ruleset.ts 强制校验）：
+#   - 每条规则必须写全 document / number / clause / excerpt / kind / source，
+#     且 excerpt 必须是逐字摘录，不得改写。
+#   - kind: direct                       条款直接规定了所检查的要求
+#   - kind: derived-from-principle       条款未直接规定，仅能由原则性条款推论（severity 最多 warn）
+#   - kind: institutional-configuration 阈值出自本机构配置（severity 最多 info）
+#
+# ⚠️⚠️ 本规则库的诚实说明：**excerpt 一律不是引文。**
+#   本插件核对的是"作业指导书／工艺规程台账"与 **PFMEA、控制计划**之间的**版本与引用一致性**。
+#   其规范载体是 IATF 16949 体系与汽车行业的五大工具手册（APQP／PFMEA／控制计划）。
+#   **核查未取得这些文件的逐字条文**，因此本规则库**不伪造任何"原文"**：
+#   每条规则的 excerpt 都写明"该条文本次未取得"，依据状态放在 note 里如实说明；
+#   kind 一律降为 derived-from-principle（封顶 warn）或 institutional-configuration（封顶 info）。
+#   **取得条文后必须做两件事**：把 excerpt 换成真正的逐字摘录，把 kind 升为 direct。
+#   在那之前，本插件的命中信息只应被读作"版本对不上 / 引用缺失 / 参数栏没填"，
+#   而**不是**"体系不符合 IATF 16949"。
+#
+# ⚠️⚠️ 另一条**必须保留**的边界：**本插件绝不判定工艺参数设置是否合理、
+#   控制计划是否覆盖了全部失效模式、PFMEA 的风险分析是否到位**。
+#   那需要结合作业实况与顾客要求，是工艺与质量工程师的判断。
+#   → 因此本插件只核对**三份文件之间的机械一致性**：
+#     引用编号是否填写、引用版本与文件实际版本是否一致、
+#     工序号／工序名称是否可对应、参数与公差是否填写、版本日期是否可解析。
+#   → **控制计划与 PFMEA 的实际版本由材料多行声明**：
+#     同一份 PFMEA／控制计划的多行版本必须一致，否则报出——这是"文件被分别修订过"的信号。
+
+plugin: dsh-sop-sync-check
+version: "2026.1"
+
+rules:
+  - id: SS-001
+    title: 作业规程应按工序声明编号与版本
+    severity: warn
+    basis:
+      document: IATF 16949／汽车行业核心工具手册
+      number: 现行版本与条号本次未核实
+      clause: 关于作业指导书与受控文件的条款（本次未取得条号）
+      excerpt: 该条文本次未取得：核查未获得 IATF 16949 及相关手册的逐字原文，本规则库不伪造引文。
+      kind: derived-from-principle
+      source: https://www.iatfglobaloversight.org/ （IATF 16949 为 IATF 版权标准，需购买；此为其监督办公室首页，无公开正文可链接）
+    params:
+      check:
+        kind: presence
+        field: sopNo
+        fix: 补填作业规程编号；本条只核对是否填写，不判断规程内容是否正确
+    note: >-
+      作业规程若无编号，就无法与 PFMEA、控制计划建立可追溯的对应关系，
+      现场也无法确认"我手上这份是不是对这一版 PFMEA 的"。
+      本次未取得明文条号，故封顶 warn。
+      本条只核对编号栏是否填写，**不判断规程内容是否正确、是否与该工序匹配**。
+
+  - id: SS-002
+    title: 作业规程应引用 PFMEA 与控制计划编号
+    severity: warn
+    basis:
+      document: IATF 16949／汽车行业核心工具手册
+      number: 现行版本与条号本次未核实
+      clause: 关于 PFMEA、控制计划与作业指导书相互引用的条款（本次未取得条号）
+      excerpt: 该条文本次未取得：核查未获得 IATF 16949 及相关手册的逐字原文，本规则库不伪造引文。
+      kind: derived-from-principle
+      source: https://www.iatfglobaloversight.org/ （IATF 16949 为 IATF 版权标准，需购买；此为其监督办公室首页，无公开正文可链接）
+    params:
+      check:
+        kind: presenceAny
+        fields: [pfmeaRef, controlPlanRef]
+        fix: 补填 PFMEA 与控制计划的引用编号；本条只核对是否填写
+    note: >-
+      核心工具手册要求三份文件**相互衔接**：作业指导书应能追溯到对应的 PFMEA 与控制计划。
+      本次未取得明文条号，这是可追溯性的**前提条件**，故封顶 warn。
+      本条只核对"至少引用了一个"，**不判断引用得是否恰当**；
+      引用版本是否与实际版本一致由 SS-003 负责。
+
+  - id: SS-003
+    title: 引用的版本应与文件实际版本一致
+    severity: warn
+    basis:
+      document: IATF 16949／汽车行业核心工具手册
+      number: 现行版本与条号本次未核实
+      clause: 关于文件版本控制的条款（本次未取得条号）
+      excerpt: 该条文本次未取得：核查未获得 IATF 16949 及相关手册的逐字原文，本规则库不伪造引文。
+      kind: derived-from-principle
+      source: https://www.iatfglobaloversight.org/ （IATF 16949 为 IATF 版权标准，需购买；此为其监督办公室首页，无公开正文可链接）
+    params:
+      check:
+        kind: referenceVersion
+        referenceField: pfmeaRef
+        actualVersionField: [pfmeaVersion]
+        sameVersionField: ''
+    note: >-
+      规程引用的 PFMEA 版本与 PFMEA 实际版本不一致，意味着**规程可能还停在上一版**——
+      这是三份文件失同步最常见也最危险的表现。本次未取得明文条号，故封顶 warn。
+      `actualVersionField` 可列多个候选列，取**第一个非空**的作为文件现行版本；
+      若候选列里只有引用文本（如「PFMEA-2026-003 V2」），本条会从文本尾部提取 `V2` 这类版本串。
+      若材料把引用版本单列一栏，把它填进 `sameVersionField` 即可，此时 `actualVersionField`
+      应指向**文件实际版本**所在的列（或表头）。
+      两者都取不到可比版本串时本条进 skipped，**不会静默通过**。
+      本条只核对版本串是否一致，**不判断该引用应当指向哪一版**。
+
+  - id: SS-004
+    title: 作业规程应填写工艺参数与公差
+    severity: warn
+    basis:
+      document: IATF 16949／汽车行业核心工具手册
+      number: 现行版本与条号本次未核实
+      clause: 关于作业指导书内容的条款（本次未取得条号）
+      excerpt: 该条文本次未取得：核查未获得 IATF 16949 及相关手册的逐字原文，本规则库不伪造引文。
+      kind: derived-from-principle
+      source: https://www.iatfglobaloversight.org/ （IATF 16949 为 IATF 版权标准，需购买；此为其监督办公室首页，无公开正文可链接）
+    params:
+      check:
+        kind: conditionalPresence
+        conditionField: parameter
+        requiredFields: [tolerance]
+        conditionValues: []
+    note: >-
+      关键参数只写数值不写公差，现场就无法判断实测值是否可接受；
+      而"哪些工序是关键工序、应写哪些参数"由控制计划决定。
+      本次未取得明文条号，故封顶 warn。
+      本条**只在参数栏已填写时**要求公差栏，避免对"本工序无需参数"的行报差异。
+      本条只核对公差栏是否填写，**不判断该参数与公差设置是否合理**。
+
+  - id: SS-005
+    title: 工序号不应在同一规程内重复
+    severity: warn
+    basis:
+      document: IATF 16949／汽车行业核心工具手册
+      number: 现行版本与条号本次未核实
+      clause: 关于工序标识的条款（本次未取得条号）
+      excerpt: 该条文本次未取得：核查未获得 IATF 16949 及相关手册的逐字原文，本规则库不伪造引文。
+      kind: derived-from-principle
+      source: https://www.iatfglobaloversight.org/ （IATF 16949 为 IATF 版权标准，需购买；此为其监督办公室首页，无公开正文可链接）
+    params:
+      check:
+        kind: unique
+        field: processNo
+    note: >-
+      同一份规程内工序号重复，会让人无法判断哪一行对应现场哪一个工序，
+      也无法与 PFMEA、控制计划的工序号对应。本次未取得明文条号，故封顶 warn。
+      比较时忽略空白字符。命中通常意味着重复登记或工序号抄错，需人工确认。
+
+  - id: SS-006
+    title: 作业规程台账应能识别产品与工序
+    severity: warn
+    basis:
+      document: IATF 16949／汽车行业核心工具手册
+      number: 现行版本与条号本次未核实
+      clause: 关于作业指导书标识的条款（本次未取得条号）
+      excerpt: 该条文本次未取得：核查未获得 IATF 16949 及相关手册的逐字原文，本规则库不伪造引文。
+      kind: derived-from-principle
+      source: https://www.iatfglobaloversight.org/ （IATF 16949 为 IATF 版权标准，需购买；此为其监督办公室首页，无公开正文可链接）
+    params:
+      check:
+        kind: headerPresence
+        fields: [productNo, productName]
+    note: >-
+      台账若不写明产品编号与名称，规程无法与具体产品对应，
+      也就无法判断这一套 PFMEA／控制计划／规程属于哪个零件。
+      本次未取得明文条号，故封顶 warn。
+      配置项 productNo 对应材料顶层的产品编号，productName 对应产品名称。
+
+  - id: SS-007
+    title: 规程修订日期应可解析且不晚于核对日
+    severity: warn
+    basis:
+      document: IATF 16949／汽车行业核心工具手册
+      number: 现行版本与条号本次未核实
+      clause: 关于文件修订与生效日期的条款（本次未取得条号）
+      excerpt: 该条文本次未取得：核查未获得 IATF 16949 及相关手册的逐字原文，本规则库不伪造引文。
+      kind: derived-from-principle
+      source: https://www.iatfglobaloversight.org/ （IATF 16949 为 IATF 版权标准，需购买；此为其监督办公室首页，无公开正文可链接）
+    params:
+      check:
+        kind: date
+        field: revisedAt
+        notAfter: today
+    note: >-
+      修订日期可解析是台账能被程序处理的前提；不应晚于核对日，
+      是"这是一份已发出的文件"的**自洽条件**。本次未取得明文条号，故封顶 warn。
+      日期无法解析时会单独报出，**不会静默跳过**。
+      本条**不判断修订是否及时**——那取决于工程更改的触发与顾客要求。
+
+disabled: []

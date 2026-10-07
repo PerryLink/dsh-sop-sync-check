@@ -1,0 +1,40 @@
+import { describeTablePlugin } from './table-plugin-suite.ts'
+import { Config } from '../src/config.ts'
+import { parseMaterial, runCheck, SPEC } from '../src/model.ts'
+import { buildView } from '../src/view.ts'
+import { inject, name, resolvePackageFile, TOOL_NAME } from '../src/index.ts'
+
+describeTablePlugin({
+  name,
+  inject,
+  TOOL_NAME,
+  resolvePackageFile,
+  Config,
+  rulesFile: 'rules/sop-sync-check.yaml',
+  parseMaterial,
+  runCheck,
+  buildView,
+  columnNames: SPEC.columns,
+  samples: {
+    good: {
+      productNo: 'P-2026-001',
+      productName: '前支架',
+      rows: [
+        {
+          规程编号: 'WI-2026-018',
+          规程名称: '精车外圆作业指导书',
+          工序号: 'OP20',
+          工序名称: '精车外圆',
+          工艺参数: '主轴转速 1200 r/min',
+          参数公差: '±50 r/min',
+          PFMEA编号: 'PFMEA-2026-003',
+          PFMEA版本: 'V2',
+          控制计划编号: 'CP-2026-003',
+          控制计划版本: 'V2',
+          修订日期: '2026-03-08',
+        },
+      ],
+    },
+    unknownColumn: { rows: [{ 备注: '甲' }] },
+  },
+})
