@@ -39,8 +39,7 @@ PFMEA analysis is adequate. **Those are the process and quality engineers' judge
 ## Install
 
 ```sh
-pnpm pack
-dsh plugin --profile <name> add ./*.tgz
+dsh plugin --profile <name> add dsh-sop-sync-check
 dsh --profile <name> --dump-config | grep 'dsh-sop-sync-check'
 ```
 

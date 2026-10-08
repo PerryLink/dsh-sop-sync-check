@@ -50,8 +50,7 @@ per process — applies a versioned rule pack, and returns a report.
 ## Install
 
 ```sh
-pnpm pack
-dsh plugin --profile <name> add ./dsh-sop-sync-check-0.1.0.tgz
+dsh plugin --profile <name> add dsh-sop-sync-check
 dsh --profile <name> --dump-config | grep 'dsh-sop-sync-check'
 ```
 
