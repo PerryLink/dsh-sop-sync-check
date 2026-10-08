@@ -1,4 +1,25 @@
-# dsh-sop-sync-check
+# dsh-sop-sync-check — Works-instruction register and PFMEA / control plan sync check
+
+`dsh-sop-sync-check` reads one works-instruction register — the product header plus one row per process — and checks that register's mechanical consistency with the PFMEA and control plan it cites: that each process row carries a procedure number, that the PFMEA or control plan is cited at all, that the revision a row cites matches the revision the register records as the document's current one, that a stated parameter carries a tolerance, that no process number is repeated, that the header names its product, and that the revision date parses and is not later than the check date. It does not judge whether the process parameters are right, whether the control plan covers every failure mode, or whether the PFMEA analysis is adequate; a check that cannot run is listed in `skipped` instead of passing silently.
+
+## What it answers
+
+| You ask | What it answers |
+|---|---|
+| A process row has no procedure number in the 规程编号 column. | `SS-001` reports that row: the rule requires the procedure-number column to be filled on every row that carries it, and it checks presence only — not whether the procedure is the right one for that process. If the material has no such column at all, the rule reports that it does not apply instead of passing silently. |
+| Nobody wrote down which PFMEA or control plan this works instruction belongs to. | `SS-002` requires at least one of PFMEA编号 and 控制计划编号 to be filled on each row. It checks only that at least one is cited — not whether the reference is apt, and not whether the revision it names is the current one; that comparison is `SS-003`. |
+| The procedure still cites the previous PFMEA revision. Will that be caught? | Yes. `SS-003` reads the revision from a dedicated revision column or from a version marker at the tail of the reference text (`PFMEA-2026-003 V2`); the marker needs an explicit cue such as `V`, `VER`, `REV`, `版本` or `版次`, so the trailing digits of a document number are never mistaken for a revision. It reports the reference whose version string differs from the document's current revision, and it compares version strings only — it does not decide which revision the reference should point to. When neither a revision column nor a readable version string is available it reports itself in `skipped`. |
+| The parameter column is filled but the 参数公差 column is empty. | `SS-004` reports that row — but only when the parameter column is filled, so a process that genuinely carries no parameter is not flagged. It checks that the tolerance column is filled, not that the parameter and its tolerance are reasonable. |
+| The same process number appears on two rows. | `SS-005` reports the repeated 工序号 and names the first row it saw with that number; whitespace is ignored in the comparison. Repetition usually means a double registration or a mistyped process number — which row is right stays a human decision. With no process-number column at all the rule reports that it does not apply rather than passing. |
+| A revision date reads `2026/3/8`, and one row is dated next month. | `SS-007` reports a 修订日期 it cannot parse, and a date later than the check date. It checks that the date parses and does not fall after the check date; it does not judge whether the revision was made promptly. |
+
+## Standards it follows
+
+This rule pack cites no public standard: the verification obtained no verbatim clause text from IATF 16949 or the automotive core-tools handbooks, so every rule's `basis` says so in as many words, each is `derived-from-principle`, and none rises above `warn`. What the checks rest on instead is the register's own stated numbers and revisions — the procedure number it writes in its own column, the revision it records against the PFMEA or control plan reference, the tolerance beside a parameter, the revision date — compared with one another.
+
+| Document | Number | Cited by rules |
+|---|---|---|
+| IATF 16949／汽车行业核心工具手册 | 现行版本与条号本次未核实 | SS-001, SS-002, SS-003, SS-004, SS-005, SS-006, SS-007 |
 
 **Boundary:** this plugin checks a **作业规程台账** for mechanical consistency with its **PFMEA** and
 **control plan** — that a number is recorded, that the PFMEA and control plan are cited, that the revision a

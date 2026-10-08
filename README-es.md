@@ -1,4 +1,25 @@
-# dsh-sop-sync-check
+# dsh-sop-sync-check — Registro de instrucciones de trabajo y verificación de sincronía con el PFMEA / plan de control
+
+`dsh-sop-sync-check` lee un registro de instrucciones de trabajo —la cabecera de producto más una fila por operación— y comprueba la coherencia mecánica de ese registro con el PFMEA y el plan de control que cita: que cada fila de operación lleve número de procedimiento, que se cite el PFMEA o el plan de control, que la revisión citada en la fila coincida con la revisión que el registro da como vigente, que un parámetro declarado lleve tolerancia, que no se repita ningún número de operación, que la cabecera identifique el producto y que la fecha de revisión se pueda analizar y no sea posterior a la fecha de comprobación. No juzga si los parámetros de proceso son correctos, si el plan de control cubre todos los modos de fallo ni si el análisis PFMEA es adecuado; una comprobación que no puede ejecutarse se lista en `skipped` en lugar de pasar en silencio.
+
+## Qué responde
+
+| Usted pregunta | Qué responde |
+|---|---|
+| Una fila de operación no tiene número de procedimiento en la columna 规程编号. | `SS-001` informa de esa fila: la regla exige que la columna del número de procedimiento esté rellena en toda fila que la traiga, y solo comprueba la presencia, no que el procedimiento sea el que corresponde a esa operación. Si el material no tiene esa columna, la regla informa de que no aplica en lugar de pasar en silencio. |
+| Nadie anotó a qué PFMEA o a qué plan de control pertenece esta instrucción de trabajo. | `SS-002` exige que se rellene en cada fila al menos uno de PFMEA编号 y 控制计划编号. Solo comprueba que se cite al menos uno, no que la referencia sea acertada ni que su revisión sea la vigente; esa comparación es `SS-003`. |
+| El procedimiento sigue citando la revisión anterior del PFMEA. ¿Se detecta? | Sí. `SS-003` toma la revisión de una columna propia o de un marcador de versión al final del texto de la referencia (`PFMEA-2026-003 V2`); el marcador necesita una señal explícita como `V`, `VER`, `REV`, `版本` o `版次`, de modo que los dígitos finales de un número de documento nunca se tomen por una revisión. Informa de la referencia cuyo texto de versión difiere de la revisión vigente del documento, y solo compara cadenas de versión: no decide a qué revisión debería apuntar la referencia. Cuando no hay ni columna de revisión ni cadena legible, se informa a sí misma en `skipped`. |
+| La columna de parámetros está rellena, pero la de 参数公差 está vacía. | `SS-004` informa de esa fila, pero solo cuando la columna de parámetros está rellena, así que una operación que realmente no lleva parámetro no se señala. Comprueba que la columna de tolerancia esté rellena, no que el parámetro y su tolerancia sean razonables. |
+| El mismo número de operación aparece en dos filas. | `SS-005` informa del 工序号 repetido y nombra la primera fila en que apareció; en la comparación se ignoran los espacios. La repetición suele significar un registro duplicado o un número mal copiado: qué fila es la correcta sigue siendo decisión humana. Sin columna de número de operación, la regla informa de que no aplica en lugar de pasar. |
+| Una fecha de revisión figura como `2026/3/8` y otra fila lleva la del mes que viene. | `SS-007` informa de una 修订日期 que no puede analizar y de una fecha posterior a la fecha de comprobación. Comprueba que la fecha se analice y no caiga después de la fecha de comprobación; no juzga si la revisión se hizo a tiempo. |
+
+## Normas que sigue
+
+Este paquete de reglas no cita ninguna norma pública: la verificación no obtuvo el texto literal de las cláusulas de IATF 16949 ni de los manuales de herramientas básicas del sector automotriz, de modo que el `basis` de cada regla lo dice con todas las letras, todas son `derived-from-principle` y ninguna supera `warn`. En lo que sí se apoyan las comprobaciones es en los números y revisiones que el propio registro declara —el número de procedimiento de su columna, la revisión anotada junto a la referencia del PFMEA o del plan de control, la tolerancia junto a un parámetro, la fecha de revisión— comparados entre sí.
+
+| Documento | Número | Reglas que lo citan |
+|---|---|---|
+| IATF 16949／汽车行业核心工具手册 | 现行版本与条号本次未核实 | SS-001, SS-002, SS-003, SS-004, SS-005, SS-006, SS-007 |
 
 **Boundary:** this plugin checks a **作业规程台账** for mechanical consistency with its **PFMEA** and
 **control plan** — that a number is recorded, that the PFMEA and control plan are cited, that the revision a
