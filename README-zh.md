@@ -1,6 +1,14 @@
 # dsh-sop-sync-check — 作业规程与 FMEA／控制计划一致性核对
 
+[![DSH Market](https://raw.githubusercontent.com/2BingLing/dsh-market/master/assets/readme/badge-listed-en.svg)](https://dsh.market/)
+
 `dsh-sop-sync-check` 读取一份作业规程台账——产品表头加每道工序一行——核对它与台账所引 PFMEA、控制计划之间的机械一致性：每道工序是否声明了规程编号、是否引用了 PFMEA 或控制计划、行内引用的版本与台账记录的现行版本是否一致、填了工艺参数的是否填了参数公差、工序号是否重复、表头是否写明产品、修订日期是否可解析且不晚于核对日。它不判断工艺参数设置是否合理、控制计划是否覆盖了全部失效模式、PFMEA 的风险分析是否到位；无法执行的检查会列在 `skipped` 中，而不是静默通过。
+
+## 实际输出长什么样
+
+![Terminal demo of dsh-sop-sync-check: real output over its SS-005 fixture](https://raw.githubusercontent.com/PerryLink/dsh-sop-sync-check/main/docs/assets/dsh-sop-sync-check-demo.png)
+
+本插件对自己 `SS-005` 测试夹具的**真实输出**，不是示意图。规则库不伪造引文，因此每条发现都会同时写明所引条款，以及该条款原文本次未取得。
 
 ## 它回答什么问题
 

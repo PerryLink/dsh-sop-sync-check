@@ -1,6 +1,14 @@
 # dsh-sop-sync-check — Registo de instruções de trabalho e verificação de sincronia com o PFMEA / plano de controlo
 
+[![DSH Market](https://raw.githubusercontent.com/2BingLing/dsh-market/master/assets/readme/badge-listed-en.svg)](https://dsh.market/)
+
 `dsh-sop-sync-check` lê um registo de instruções de trabalho —o cabeçalho de produto mais uma linha por operação— e verifica a coerência mecânica desse registo com o PFMEA e o plano de controlo que cita: se cada linha de operação traz número de procedimento, se o PFMEA ou o plano de controlo é citado, se a revisão citada na linha coincide com a revisão que o registo indica como vigente, se um parâmetro declarado traz tolerância, se nenhum número de operação se repete, se o cabeçalho identifica o produto e se a data de revisão é analisável e não é posterior à data de verificação. Não julga se os parâmetros de processo estão corretos, se o plano de controlo cobre todos os modos de falha nem se a análise PFMEA é adequada; uma verificação que não pode correr é listada em `skipped` em vez de passar em silêncio.
+
+## Como é a saída
+
+![Terminal demo of dsh-sop-sync-check: real output over its SS-005 fixture](https://raw.githubusercontent.com/PerryLink/dsh-sop-sync-check/main/docs/assets/dsh-sop-sync-check-demo.png)
+
+Saída real deste plugin sobre o seu próprio fixture de teste `SS-005` — não é uma simulação. O pacote de regras não inventa citações, por isso cada achado nomeia a cláusula aplicada e avisa que o seu texto não foi obtido.
 
 ## O que ele responde
 
