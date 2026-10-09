@@ -1,6 +1,6 @@
 {
   "name": "dsh-sop-sync-check",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "作业规程与 FMEA／控制计划一致性核对（按编号与版本核对三份文件是否同步，仅提示差异，不作出定性结论）",
   "type": "module",
   "main": "lib/index.mjs",
