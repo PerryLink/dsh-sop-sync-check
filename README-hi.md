@@ -4,6 +4,13 @@
 
 `dsh-sop-sync-check` एक कार्य-अनुदेश रजिस्टर पढ़ता है — उत्पाद हेडर और प्रत्येक प्रक्रिया की एक पंक्ति — और उस रजिस्टर की उसके द्वारा उद्धृत PFMEA तथा नियंत्रण योजना के साथ यांत्रिक संगति जाँचता है: हर प्रक्रिया पंक्ति में प्रक्रिया-अनुदेश क्रमांक दर्ज है या नहीं, PFMEA या नियंत्रण योजना का उल्लेख है या नहीं, पंक्ति में उद्धृत संस्करण रजिस्टर में दर्ज वर्तमान संस्करण से मेल खाता है या नहीं, दर्ज किए गए पैरामीटर के साथ सह्यता (tolerance) दर्ज है या नहीं, कोई प्रक्रिया क्रमांक दोहराया नहीं गया है या नहीं, हेडर उत्पाद बताता है या नहीं, और संशोधन तिथि पढ़ी जा सकती है तथा जाँच-तिथि से बाद की नहीं है या नहीं। यह नहीं आँकता कि प्रक्रिया पैरामीटर सही हैं, नियंत्रण योजना सभी विफलता-प्रकारों को समेटती है, या PFMEA विश्लेषण पर्याप्त है; जो जाँच चल नहीं सकती वह चुपचाप पास होने के बजाय `skipped` में दर्ज होती है।
 
+## Install
+
+```sh
+dsh plugin --profile <name> add dsh-sop-sync-check
+dsh --profile <name> --dump-config | grep 'dsh-sop-sync-check'
+```
+
 ## आउटपुट कैसा दिखता है
 
 ![Terminal demo of dsh-sop-sync-check: real output over its SS-005 fixture](https://raw.githubusercontent.com/PerryLink/dsh-sop-sync-check/main/docs/assets/dsh-sop-sync-check-hero.png)
@@ -66,13 +73,6 @@ PFMEA analysis is adequate. **Those are the process and quality engineers' judge
 ## What it does
 
 नियम-सूची, फ़ील्ड और विस्तृत व्यवहार [README.md](README.md#what-it-does) (अंग्रेज़ी मुख्य संस्करण) में हैं। यह प्लगइन केवल उद्धृत धाराओं के सामने शाब्दिक अंतर सूचीबद्ध करता है और हर न चल पाई जाँच को `skipped` में बताता है।
-
-## Install
-
-```sh
-dsh plugin --profile <name> add dsh-sop-sync-check
-dsh --profile <name> --dump-config | grep 'dsh-sop-sync-check'
-```
 
 ## Configuration
 

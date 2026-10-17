@@ -4,6 +4,13 @@
 
 `dsh-sop-sync-check` 读取一份作业规程台账——产品表头加每道工序一行——核对它与台账所引 PFMEA、控制计划之间的机械一致性：每道工序是否声明了规程编号、是否引用了 PFMEA 或控制计划、行内引用的版本与台账记录的现行版本是否一致、填了工艺参数的是否填了参数公差、工序号是否重复、表头是否写明产品、修订日期是否可解析且不晚于核对日。它不判断工艺参数设置是否合理、控制计划是否覆盖了全部失效模式、PFMEA 的风险分析是否到位；无法执行的检查会列在 `skipped` 中，而不是静默通过。
 
+## Install
+
+```sh
+dsh plugin --profile <name> add dsh-sop-sync-check
+dsh --profile <name> --dump-config | grep 'dsh-sop-sync-check'
+```
+
 ## 实际输出长什么样
 
 ![Terminal demo of dsh-sop-sync-check: real output over its SS-005 fixture](https://raw.githubusercontent.com/PerryLink/dsh-sop-sync-check/main/docs/assets/dsh-sop-sync-check-hero.png)
@@ -66,13 +73,6 @@ PFMEA analysis is adequate. **Those are the process and quality engineers' judge
 ## What it does
 
 规则表、字段说明与行为细节见 [README.md](README.md#what-it-does)（英文主版本）。本插件只列出材料与所引条款之间的字面差异，并对无法执行的检查在 `skipped` 中逐项说明。
-
-## Install
-
-```sh
-dsh plugin --profile <name> add dsh-sop-sync-check
-dsh --profile <name> --dump-config | grep 'dsh-sop-sync-check'
-```
 
 ## Configuration
 

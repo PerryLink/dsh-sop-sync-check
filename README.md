@@ -4,6 +4,13 @@
 
 `dsh-sop-sync-check` reads one works-instruction register — the product header plus one row per process — and checks that register's mechanical consistency with the PFMEA and control plan it cites: that each process row carries a procedure number, that the PFMEA or control plan is cited at all, that the revision a row cites matches the revision the register records as the document's current one, that a stated parameter carries a tolerance, that no process number is repeated, that the header names its product, and that the revision date parses and is not later than the check date. It does not judge whether the process parameters are right, whether the control plan covers every failure mode, or whether the PFMEA analysis is adequate; a check that cannot run is listed in `skipped` instead of passing silently.
 
+## Install
+
+```sh
+dsh plugin --profile <name> add dsh-sop-sync-check
+dsh --profile <name> --dump-config | grep 'dsh-sop-sync-check'
+```
+
 ## What it looks like
 
 ![Terminal demo of dsh-sop-sync-check: real output over its SS-005 fixture](https://raw.githubusercontent.com/PerryLink/dsh-sop-sync-check/main/docs/assets/dsh-sop-sync-check-hero.png)
@@ -77,13 +84,6 @@ per process — applies a versioned rule pack, and returns a report.
 | `SS-005` | process numbers are unique | warn | principle |
 | `SS-006` | the register names its product | warn | principle |
 | `SS-007` | the revision date parses and is not in the future | warn | principle |
-
-## Install
-
-```sh
-dsh plugin --profile <name> add dsh-sop-sync-check
-dsh --profile <name> --dump-config | grep 'dsh-sop-sync-check'
-```
 
 ## Configuration
 
