@@ -1,0 +1,14 @@
+[
+  {
+    "path": "docs/assets/dsh-sop-sync-check-hero.png",
+    "kind": "hero",
+    "alt": "dsh-sop-sync-check terminal output",
+    "caption": "Real dsh-sop-sync-check checker output; 31 tests passed."
+  },
+  {
+    "path": "docs/assets/dsh-sop-sync-check-demo.gif",
+    "kind": "demo",
+    "alt": "Animated dsh-sop-sync-check terminal session",
+    "caption": "The same run, assembled line by line."
+  }
+]
