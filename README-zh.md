@@ -42,21 +42,11 @@ dsh --profile <name> --dump-config | grep 'dsh-sop-sync-check'
 
 **边界（中文译文，以英文原文为准）：** 本插件核对一份 **作业规程台账** 与其 **PFMEA** 及 **控制计划（control plan）** 的机械一致性——是否记录编号，是否引用 PFMEA 与控制计划，规程所引版本是否与文档的当前版本一致，参数是否带有公差，工序编号是否唯一，台账是否写明其产品，以及修订日期是否可解析。它**不**判定工艺参数是否正确、控制计划是否覆盖每一个失效模式，或 PFMEA 分析是否充分。**这些属于工艺与质量工程师的判断。**
 
-> ### ⚠️ Read this before trusting a citation in the report
+> ### ⚠️ 在相信报告中的引文之前，请先读这一节（以英文原文为准）
 >
-> **Every `excerpt` in this plugin's rule pack says, in so many words, that the clause text was not
-> obtained.** The regime lives in IATF 16949 and the automotive core-tools handbooks (APQP, PFMEA, control
-> plan). The verification pass could not retrieve verbatim clause text from them, so rather than paraphrase a
-> quotation the pack states the gap in the `excerpt` field itself and puts the honest reasoning in `note`.
-> Every rule is therefore `warn` or `info`, and a test asserts that no rule claims a quotation it does not
-> have. **When the texts are in hand, two things must be done: replace each `excerpt` with the real clause,
-> and raise `kind` to `direct`.**
+> **本插件规则库中的每一个 `excerpt` 都明文写着：条款原文本次未取得。** 该制度见于 IATF 16949 与汽车行业核心工具手册（APQP、PFMEA、控制计划）。核验环节无法从这些文件中取得逐字条款原文，因此规则库没有去转述一段引文，而是在 `excerpt` 字段本身写明这一缺口，并把诚实的推理写进 `note`。因此每条规则都是 `warn` 或 `info`，且有测试断言：没有任何规则声称拥有它实际没有的引文。**待取得原文后，必须做两件事：把每个 `excerpt` 换成真实条款，并把 `kind` 提到 `direct`。**
 >
-> `SS-003` is the one that earns its keep: **a procedure still citing the previous PFMEA revision** is the
-> commonest and most dangerous way the three documents drift apart. It reads the revision either from a
-> dedicated column or from a version marker at the tail of the reference text (`PFMEA-2026-003 V2`), and it
-> needs an explicit cue — `V`, `VER`, `REV`, `版本`, `版次` — so that the trailing digits of a *document
-> number* are never mistaken for a revision. With neither source available it reports itself in `skipped`.
+> `SS-003` 是最能体现价值的一条：**作业规程仍在引用上一版 PFMEA**，是这三份文件彼此脱节最常见、也最危险的方式。它要么从专门的栏读取版本，要么从引用文字末尾的版本标记（`PFMEA-2026-003 V2`）读取，并且需要一个明确的提示词——`V`、`VER`、`REV`、`版本`、`版次`——这样*文档编号*末尾的数字就永远不会被误认为版本号。两种来源都不可用时，它把自己记入 `skipped`。
 
 ## Compatibility
 
