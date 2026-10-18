@@ -1,5 +1,12 @@
 # dsh-sop-sync-check — Works-instruction register and PFMEA / control plan sync check
 
+[English](README.md) · [简体中文](README-zh.md) · [Español](README-es.md) · [Português](README-pt.md) · [हिन्दी](README-hi.md)
+
+```sh
+dsh plugin --profile <name> add dsh-sop-sync-check
+```
+
+
 [![DSH Market](https://raw.githubusercontent.com/2BingLing/dsh-market/master/assets/readme/badge-listed-en.svg)](https://dsh.market/)
 
 `dsh-sop-sync-check` reads one works-instruction register — the product header plus one row per process — and checks that register's mechanical consistency with the PFMEA and control plan it cites: that each process row carries a procedure number, that the PFMEA or control plan is cited at all, that the revision a row cites matches the revision the register records as the document's current one, that a stated parameter carries a tolerance, that no process number is repeated, that the header names its product, and that the revision date parses and is not later than the check date. It does not judge whether the process parameters are right, whether the control plan covers every failure mode, or whether the PFMEA analysis is adequate; a check that cannot run is listed in `skipped` instead of passing silently.
