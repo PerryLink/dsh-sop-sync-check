@@ -40,12 +40,7 @@ dsh --profile <name> --dump-config | grep 'dsh-sop-sync-check'
 |---|---|---|
 | IATF 16949／汽车行业核心工具手册 | 现行版本与条号本次未核实 | SS-001, SS-002, SS-003, SS-004, SS-005, SS-006, SS-007 |
 
-**Boundary:** this plugin checks a **作业规程台账** for mechanical consistency with its **PFMEA** and
-**control plan** — that a number is recorded, that the PFMEA and control plan are cited, that the revision a
-procedure cites matches the document's current revision, that a parameter has a tolerance, that process
-numbers are unique, that the register names its product, and that revision dates parse. It does **not** judge
-whether the process parameters are right, whether the control plan covers every failure mode, or whether the
-PFMEA analysis is adequate. **Those are the process and quality engineers' judgements.**
+**边界（中文译文，以英文原文为准）：** 本插件核对一份 **作业规程台账** 与其 **PFMEA** 及 **控制计划（control plan）** 的机械一致性——是否记录编号，是否引用 PFMEA 与控制计划，规程所引版本是否与文档的当前版本一致，参数是否带有公差，工序编号是否唯一，台账是否写明其产品，以及修订日期是否可解析。它**不**判定工艺参数是否正确、控制计划是否覆盖每一个失效模式，或 PFMEA 分析是否充分。**这些属于工艺与质量工程师的判断。**
 
 > ### ⚠️ Read this before trusting a citation in the report
 >
