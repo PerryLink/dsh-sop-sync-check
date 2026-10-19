@@ -8,6 +8,7 @@ dsh plugin --profile <name> add dsh-sop-sync-check
 
 
 [![DSH Market](https://raw.githubusercontent.com/2BingLing/dsh-market/master/assets/readme/badge-listed-en.svg)](https://dsh.market/)
+[![dshfind](https://dshfind.com/api/badge/PerryLink/dsh-sop-sync-check?metric=downloads)](https://dshfind.com/en/plugins/PerryLink/dsh-sop-sync-check?ref=badge)
 
 `dsh-sop-sync-check` lee un registro de instrucciones de trabajo —la cabecera de producto más una fila por operación— y comprueba la coherencia mecánica de ese registro con el PFMEA y el plan de control que cita: que cada fila de operación lleve número de procedimiento, que se cite el PFMEA o el plan de control, que la revisión citada en la fila coincida con la revisión que el registro da como vigente, que un parámetro declarado lleve tolerancia, que no se repita ningún número de operación, que la cabecera identifique el producto y que la fecha de revisión se pueda analizar y no sea posterior a la fecha de comprobación. No juzga si los parámetros de proceso son correctos, si el plan de control cubre todos los modos de fallo ni si el análisis PFMEA es adecuado; una comprobación que no puede ejecutarse se lista en `skipped` en lugar de pasar en silencio.
 
