@@ -35,6 +35,35 @@ Saída real deste plugin sobre o seu próprio fixture de teste `SS-005` — não
 A tabela abaixo é o conjunto de exemplos: a primeira linha é o caso detalhado e as demais são casos curtos.
 
 
+#### Saída detalhada
+
+**Ferramenta** `sop_sync_check`
+
+**Entrada**
+
+~~~json
+{"pfmeaVersion":"V2","rows":[{"PFMEA编号":"PFMEA-2026-003 V1"}]}
+~~~
+ 
+**Saída**
+
+~~~json
+{
+  "id": "dsh-sop-sync-check.SS-003.de09b5a6",
+  "ruleId": "SS-003",
+  "severity": "warn",
+  "locator": {
+    "row": 1,
+    "field": "pfmeaRef"
+  },
+  "found": "第 1 行引用的版本「1」与文件现行版本「2」不一致",
+  "expected": "引用的版本应与该文件的现行版本一致",
+  "fix": "核对是否还停在上一版；本条只比对版本串，不判断该引用应当指向哪一版"
+}
+~~~
+
+*Observado em `dsh-sop-sync-check/tests/fixtures/SS-003/SS-003-unsafe.json`*
+
 | Você pergunta | O que ele responde |
 |---|---|
 | Uma linha de operação não tem número de procedimento na coluna 规程编号. | `SS-001` reporta essa linha: a regra exige que a coluna do número de procedimento esteja preenchida em toda a linha que a traga, e verifica apenas a presença, não se o procedimento é o certo para essa operação. Se o material não tiver essa coluna, a regra reporta que não se aplica em vez de passar em silêncio. |

@@ -30,6 +30,35 @@ dsh --profile <name> --dump-config | grep 'dsh-sop-sync-check'
 下表是示例集：第一行是详细走查，其余行是简短案例。
 
 
+#### 详细输出
+
+**工具** `sop_sync_check`
+
+**输入**
+
+~~~json
+{"pfmeaVersion":"V2","rows":[{"PFMEA编号":"PFMEA-2026-003 V1"}]}
+~~~
+ 
+**输出**
+
+~~~json
+{
+  "id": "dsh-sop-sync-check.SS-003.de09b5a6",
+  "ruleId": "SS-003",
+  "severity": "warn",
+  "locator": {
+    "row": 1,
+    "field": "pfmeaRef"
+  },
+  "found": "第 1 行引用的版本「1」与文件现行版本「2」不一致",
+  "expected": "引用的版本应与该文件的现行版本一致",
+  "fix": "核对是否还停在上一版；本条只比对版本串，不判断该引用应当指向哪一版"
+}
+~~~
+
+*来源 `dsh-sop-sync-check/tests/fixtures/SS-003/SS-003-unsafe.json`*
+
 | 你会问 | 它怎么答 |
 |---|---|
 | 某道工序行的规程编号栏是空的。 | `SS-001` 会报出该行：本条要求凡带规程编号栏的行都必须填写，且只核对是否填写，不判断这份规程是不是该工序该用的那一份。材料里根本没有这一栏时，本条报告「不适用」，而不是静默通过。 |

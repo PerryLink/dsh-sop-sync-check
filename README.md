@@ -33,6 +33,35 @@ dsh --profile <name> --dump-config | grep 'dsh-sop-sync-check'
 
 The table below is the example set: the first row is the detailed walkthrough, the remaining rows are short cases.
 
+#### Detailed output
+
+**Tool** `sop_sync_check`
+
+**Input**
+
+~~~json
+{"pfmeaVersion":"V2","rows":[{"PFMEA编号":"PFMEA-2026-003 V1"}]}
+~~~
+ 
+**Output**
+
+~~~json
+{
+  "id": "dsh-sop-sync-check.SS-003.de09b5a6",
+  "ruleId": "SS-003",
+  "severity": "warn",
+  "locator": {
+    "row": 1,
+    "field": "pfmeaRef"
+  },
+  "found": "第 1 行引用的版本「1」与文件现行版本「2」不一致",
+  "expected": "引用的版本应与该文件的现行版本一致",
+  "fix": "核对是否还停在上一版；本条只比对版本串，不判断该引用应当指向哪一版"
+}
+~~~
+
+*Observed from `dsh-sop-sync-check/tests/fixtures/SS-003/SS-003-unsafe.json`*
+
 | You ask | What it answers |
 |---|---|
 | A process row has no procedure number in the 规程编号 column. | `SS-001` reports that row: the rule requires the procedure-number column to be filled on every row that carries it, and it checks presence only — not whether the procedure is the right one for that process. If the material has no such column at all, the rule reports that it does not apply instead of passing silently. |
