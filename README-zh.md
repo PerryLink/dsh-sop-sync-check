@@ -1,6 +1,6 @@
 # dsh-sop-sync-check — 作业规程与 FMEA／控制计划一致性核对
 
-## 快速试跑（1 分钟）
+### 快速试跑（1 分钟）
 
 ```bash
 node samples/quickstart/run.mjs --check
