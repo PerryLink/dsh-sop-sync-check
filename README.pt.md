@@ -1,8 +1,8 @@
 <div align="center">
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-sop-sync-check-flow-dark.svg">
-  <img src="docs/assets/dsh-sop-sync-check-flow-light.svg" width="100%" alt="Fluxo do dsh-sop-sync-check: material (JSON/YAML) → sop_sync_check → rules/sop-sync-check.yaml → relatório; skipped registra cada verificação que não pôde correr">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-sop-sync-check-hero-en-dark.webp">
+  <img src="docs/assets/dsh-sop-sync-check-hero-en-light.webp" width="100%" alt="dsh-sop-sync-check: à esquerda o nome e as frases de valor; à direita, a linha 1 de um registro de instruções de trabalho — OP20, procedimento WI-2026-018, PFMEA citado em V1 face à versão vigente V2, plano de controlo citado e vigente em V2; abaixo, o achado SS-003 e a contagem de skipped[], com o veredicto entregue ao revisor">
 </picture>
 
 # dsh-sop-sync-check
@@ -44,6 +44,11 @@ Foi feito para quem trabalha com processo, qualidade e controlo documental e nã
 material (JSON / YAML) ──▶ sop_sync_check ──▶ rules/sop-sync-check.yaml ──▶ relatório
                                                                     └─▶ skipped (verificação não executável + motivo)
 ```
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-sop-sync-check-flow-v5-dark.svg">
+  <img src="docs/assets/dsh-sop-sync-check-flow-v5-light.svg" width="100%" alt="Estrutura do dsh-sop-sync-check: uma linha do registro face às referências PFMEA e plano de controlo, com o PFMEA citado em V1 face ao vigente V2 e o plano de controlo em V2; as sete regras agrupadas por integridade, coincidência de versão e coerência interna; SS-003 sai para issues[] e SS-004 para skipped[]; apenas diferenças literais, sem veredicto">
+</picture>
 
 ## Instalação em três passos
 
@@ -311,7 +316,7 @@ pnpm run check:readmes                               # consistência dos README 
 
 O item 5 copia o kit compartilhado de `../_shared` para `src/shared/`; execute-o de novo após cada mudança compartilhada.
 
-O plugin é **orientado por dados**: `src/model.ts` declara a forma da tabela e os aliases de coluna, `src/shared/` fornece o leitor e o motor de verificação, e o pacote de regras declara cada verificação. As imagens do README são geradas programaticamente por [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) (Python + Pillow) e podem ser executadas de novo.
+O plugin é **orientado por dados**: `src/model.ts` declara a forma da tabela e os aliases de coluna, `src/shared/` fornece o leitor e o motor de verificação, e o pacote de regras declara cada verificação. As imagens do README são geradas programaticamente por [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) — o banner hero com Pillow e o diagrama de estrutura flow-v5 como SVG escrito à mão — e podem ser executadas de novo.
 
 Topics: `dsh`, `dsh-plugin`, `deepseek-harness`, `deepseek`, `cordis`, `sop`, `sync`
 

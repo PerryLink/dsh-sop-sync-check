@@ -1,8 +1,8 @@
 <div align="center">
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-sop-sync-check-flow-dark.svg">
-  <img src="docs/assets/dsh-sop-sync-check-flow-light.svg" width="100%" alt="dsh-sop-sync-check pipeline: material (JSON/YAML) → sop_sync_check → rules/sop-sync-check.yaml → report; skipped records every check that could not run">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-sop-sync-check-hero-en-dark.webp">
+  <img src="docs/assets/dsh-sop-sync-check-hero-en-light.webp" width="100%" alt="dsh-sop-sync-check hero: the plugin name and value lines on the left; on the right row 1 of a works-instruction register — OP20, SOP WI-2026-018, PFMEA cited at V1 against current V2, control plan cited and current at V2; below, the SS-003 finding and the skipped[] count, with the verdict left to the reviewer">
 </picture>
 
 # dsh-sop-sync-check
@@ -44,6 +44,11 @@ It is built for process, quality, and document-control staff who should not have
 material (JSON / YAML) ──▶ sop_sync_check ──▶ rules/sop-sync-check.yaml ──▶ report
                                                                     └─▶ skipped (unrunnable check + reason)
 ```
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-sop-sync-check-flow-v5-dark.svg">
+  <img src="docs/assets/dsh-sop-sync-check-flow-v5-light.svg" width="100%" alt="dsh-sop-sync-check structure: one works-instruction register row against its PFMEA and control-plan citations, with PFMEA cited at V1 against current V2 and the control plan in sync; the seven rules grouped by completeness, version match, and in-row consistency; the SS-003 finding exits to issues[] while SS-004 lands in skipped[]; literal differences only, no verdict">
+</picture>
 
 ## Three-step setup
 
@@ -311,7 +316,7 @@ pnpm run check:readmes                               # five-language README cons
 
 Item 5 copies the shared kit from `../_shared` into `src/shared/`; re-run it after every shared change.
 
-The plugin is **data-driven**: `src/model.ts` declares the table shape and column aliases, `src/shared/` supplies the reader and the check engine, and the rule pack declares every check. The README images are generated programmatically by [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) (Python + Pillow) and are safe to re-run.
+The plugin is **data-driven**: `src/model.ts` declares the table shape and column aliases, `src/shared/` supplies the reader and the check engine, and the rule pack declares every check. The README images are generated programmatically by [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) — the hero banner with Pillow, the flow-v5 structure diagram as hand-written SVG — and are safe to re-run.
 
 Topics: `dsh`, `dsh-plugin`, `deepseek-harness`, `deepseek`, `cordis`, `sop`, `sync`
 

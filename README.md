@@ -1,8 +1,8 @@
 <div align="center">
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-sop-sync-check-flow-dark.svg">
-  <img src="docs/assets/dsh-sop-sync-check-flow-light.svg" width="100%" alt="dsh-sop-sync-check 管线：材料（JSON/YAML）→ sop_sync_check → rules/sop-sync-check.yaml → 报告；skipped 记录无法执行的检查">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-sop-sync-check-hero-zh-dark.webp">
+  <img src="docs/assets/dsh-sop-sync-check-hero-zh-light.webp" width="100%" alt="dsh-sop-sync-check 配图：左列是插件名与价值句；右侧是一份作业规程台账的第 1 行——工序 OP20、规程编号 WI-2026-018，PFMEA 引用 V1 而文件现行 V2，控制计划引用与现行同为 V2；下方是 SS-003 差异与 skipped[] 计数，结论留给审核人">
 </picture>
 
 # dsh-sop-sync-check
@@ -44,6 +44,11 @@ dsh plugin --profile <name> add dsh-sop-sync-check
 材料（JSON / YAML） ──▶ sop_sync_check ──▶ rules/sop-sync-check.yaml ──▶ 报告
                                                                   └─▶ skipped（无法执行的检查 + 原因）
 ```
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-sop-sync-check-flow-v5-dark.svg">
+  <img src="docs/assets/dsh-sop-sync-check-flow-v5-light.svg" width="100%" alt="dsh-sop-sync-check 结构图：上方是作业规程台账的一行与其 PFMEA／控制计划两处引用，PFMEA 引用 V1 与现行 V2 不同、控制计划 V2 同版；中间七条规则按「是否写得全 / 版本是否同版 / 行内是否自洽」三组挂在规则库上；下方 SS-003 差异进入 issues[]，SS-004 因无参数行进入 skipped[]；只列字面差异，不作结论">
+</picture>
 
 ## 三步上手
 
@@ -311,7 +316,7 @@ pnpm run check:readmes                               # 五语 README 一致性
 
 第 5 项把 `../_shared` 的共享件同步进 `src/shared/`；每次改动共享件后都要重跑。
 
-插件是**数据驱动**的：`src/model.ts` 声明表格形状与列别名，`src/shared/` 提供读取器与检查引擎，规则库声明每一条检查。README 配图由 [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) 程序化生成（Python + Pillow），可重复执行。
+插件是**数据驱动**的：`src/model.ts` 声明表格形状与列别名，`src/shared/` 提供读取器与检查引擎，规则库声明每一条检查。README 配图由 [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) 程序化生成——hero 横幅用 Pillow 画，flow-v5 结构图用手写 SVG 画——可重复执行。
 
 Topics：`dsh`, `dsh-plugin`, `deepseek-harness`, `deepseek`, `cordis`, `sop`, `sync`
 

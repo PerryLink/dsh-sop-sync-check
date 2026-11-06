@@ -1,8 +1,8 @@
 <div align="center">
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-sop-sync-check-flow-dark.svg">
-  <img src="docs/assets/dsh-sop-sync-check-flow-light.svg" width="100%" alt="dsh-sop-sync-check प्रवाह: सामग्री (JSON/YAML) → sop_sync_check → rules/sop-sync-check.yaml → रिपोर्ट; skipped में हर वह जाँच दर्ज होती है जो चल नहीं सकी">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-sop-sync-check-hero-en-dark.webp">
+  <img src="docs/assets/dsh-sop-sync-check-hero-en-light.webp" width="100%" alt="dsh-sop-sync-check: बाईं ओर नाम और मूल्य-पंक्तियाँ; दाईं ओर कार्य-निर्देश रजिस्टर की पंक्ति 1 — OP20, WI-2026-018, PFMEA उद्धृत V1 बनाम वर्तमान V2, नियंत्रण योजना उद्धृत और वर्तमान V2; नीचे SS-003 निष्कर्ष और skipped[] गिनती, निर्णय समीक्षक के पास">
 </picture>
 
 # dsh-sop-sync-check
@@ -44,6 +44,11 @@ dsh plugin --profile <name> add dsh-sop-sync-check
 सामग्री (JSON / YAML) ──▶ sop_sync_check ──▶ rules/sop-sync-check.yaml ──▶ रिपोर्ट
                                                                     └─▶ skipped (न चल पाई जाँच + कारण)
 ```
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-sop-sync-check-flow-v5-dark.svg">
+  <img src="docs/assets/dsh-sop-sync-check-flow-v5-light.svg" width="100%" alt="dsh-sop-sync-check संरचना: रजिस्टर की एक पंक्ति और उसके PFMEA व नियंत्रण-योजना संदर्भ, PFMEA उद्धृत V1 बनाम वर्तमान V2 और नियंत्रण योजना V2; सात नियम तीन समूहों में; SS-003 issues[] में और SS-004 skipped[] में; केवल शाब्दिक अंतर, कोई निर्णय नहीं">
+</picture>
 
 ## तीन चरणों में शुरुआत
 
@@ -311,7 +316,7 @@ pnpm run check:readmes                               # पाँच-भाषा
 
 आइटम 5 `../_shared` का साझा किट `src/shared/` में कॉपी करता है; हर साझा बदलाव के बाद इसे दोबारा चलाएँ।
 
-प्लगइन **डेटा-चालित** है: `src/model.ts` तालिका का आकार और कॉलम उपनाम घोषित करता है, `src/shared/` पाठक और जाँच इंजन देता है, और नियम-पैक हर जाँच घोषित करता है। README की तस्वीरें [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) (Python + Pillow) से क्रमादेशित रूप से बनती हैं और दोबारा चलाई जा सकती हैं।
+प्लगइन **डेटा-चालित** है: `src/model.ts` तालिका का आकार और कॉलम उपनाम घोषित करता है, `src/shared/` पाठक और जाँच इंजन देता है, और नियम-पैक हर जाँच घोषित करता है। README की तस्वीरें [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) से क्रमादेशित रूप से बनती हैं — hero बैनर Pillow से और flow-v5 संरचना-चित्र हाथ से लिखे SVG से — और दोबारा चलाई जा सकती हैं।
 
 Topics: `dsh`, `dsh-plugin`, `deepseek-harness`, `deepseek`, `cordis`, `sop`, `sync`
 
