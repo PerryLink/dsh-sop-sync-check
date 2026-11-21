@@ -125,6 +125,10 @@ The rule pack is data: `rules/sop-sync-check.yaml` declares every check, so repl
 
 ### Examples
 
+![dsh-sop-sync-check: real terminal run](docs/assets/dsh-sop-sync-check-demo.gif)
+
+*Animated replay of a real run recorded in this repository.*
+
 The output below is this plugin's real output on its own `SS-003` fixture, not an illustration. The rule pack does not fabricate citations, so every finding also names the clause it applied and states that the clause text was not obtained this round.
 
 **Tool** `sop_sync_check`

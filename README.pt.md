@@ -50,6 +50,11 @@ material (JSON / YAML) ──▶ sop_sync_check ──▶ rules/sop-sync-check.y
   <img src="docs/assets/dsh-sop-sync-check-flow-v5-light.svg" width="100%" alt="Estrutura do dsh-sop-sync-check: uma linha do registro face às referências PFMEA e plano de controlo, com o PFMEA citado em V1 face ao vigente V2 e o plano de controlo em V2; as sete regras agrupadas por integridade, coincidência de versão e coerência interna; SS-003 sai para issues[] e SS-004 para skipped[]; apenas diferenças literais, sem veredicto">
 </picture>
 
+![dsh-sop-sync-check: execução real de terminal](docs/assets/dsh-sop-sync-check-demo.gif)
+
+*Repetição animada de uma execução real registrada neste repositório.*
+
+
 ## Instalação em três passos
 
 1. **Instalar** (escolha um canal):

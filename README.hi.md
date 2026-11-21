@@ -50,6 +50,11 @@ dsh plugin --profile <name> add dsh-sop-sync-check
   <img src="docs/assets/dsh-sop-sync-check-flow-v5-light.svg" width="100%" alt="dsh-sop-sync-check संरचना: रजिस्टर की एक पंक्ति और उसके PFMEA व नियंत्रण-योजना संदर्भ, PFMEA उद्धृत V1 बनाम वर्तमान V2 और नियंत्रण योजना V2; सात नियम तीन समूहों में; SS-003 issues[] में और SS-004 skipped[] में; केवल शाब्दिक अंतर, कोई निर्णय नहीं">
 </picture>
 
+![dsh-sop-sync-check का असली टर्मिनल रन](docs/assets/dsh-sop-sync-check-demo.gif)
+
+*इस रिपॉज़िटरी में दर्ज असली रन का एनिमेटेड रीप्ले।*
+
+
 ## तीन चरणों में शुरुआत
 
 1. **इंस्टॉल करें** (एक चैनल चुनें):
