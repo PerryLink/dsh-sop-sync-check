@@ -11,6 +11,8 @@
 
 प्रक्रिया, गुणवत्ता और दस्तावेज़-नियंत्रण कार्य के लिए एक मिलान-उपकरण: एक कार्य-अनुदेश रजिस्टर दें, और यह उसे संस्करणबद्ध नियम-पैक से यांत्रिक रूप से तुलना करके पंक्ति-दर-पंक्ति इंगित करने योग्य अंतरों की सूची लौटाता है। यह मूल दस्तावेज़ को बदलता नहीं और अनुपालन पर निर्णय नहीं देता।
 
+अंतिम सत्यापन: DeepSeek Harness `dsh-v0.2.3-alpha.1` (2026-11-22).
+
 [इंस्टॉल](#तीन-चरणों-में-शुरुआत) · [कॉन्फ़िगरेशन](#कॉन्फ़िगरेशन) · [FAQ](#faq) · [简体中文](README.md) · [English](README.en.md) · [Español](README.es.md) · [Português](README.pt.md) · [हिन्दी](README.hi.md)
 
 [![License](https://img.shields.io/badge/license-Apache--2.0-3366CC?style=flat-square&labelColor=2B3245)](LICENSE)
@@ -54,7 +56,6 @@ dsh plugin --profile <name> add dsh-sop-sync-check
 
 *इस रिपॉज़िटरी में दर्ज असली रन का एनिमेटेड रीप्ले।*
 
-
 ## तीन चरणों में शुरुआत
 
 1. **इंस्टॉल करें** (एक चैनल चुनें):
@@ -62,7 +63,7 @@ dsh plugin --profile <name> add dsh-sop-sync-check
    ```sh
    # git चैनल (नवीनतम main)
    dsh plugin --profile <name> add github:PerryLink/dsh-sop-sync-check
-   # npm चैनल (प्रकाशित संस्करण, अभी 0.2.9)
+   # npm चैनल (प्रकाशित संस्करण, अभी 0.2.11)
    dsh plugin --profile <name> add dsh-sop-sync-check
    # tarball चैनल: इस रेपो में pnpm pack के बाद
    dsh plugin --profile <name> add ./dsh-sop-sync-check-<version>.tgz
@@ -291,7 +292,7 @@ rows:
 ## समस्या-निवारण
 
 - **प्लगइन इंस्टॉल हो गया पर टूल दिखता नहीं।** जाँचें कि `main` `lib/index.mjs` पर जाता है और `pnpm run build` ने उसे बनाया है; गलत `main` पर लोडर प्रविष्टि को चुपचाप छोड़ देता है।
-- **`dsh plugin add` असंगत बताकर मना करता है।** peer रेंज `0.1.x` और `0.2.x` दोनों को कवर करती है; यदि आपका रनटाइम उसके बाहर है तो स्पष्ट छूट दें: `dsh plugin --profile <name> allow-version dsh-sop-sync-check@0.2.9 --dsh-version <runtime> --accept-risk`।
+- **`dsh plugin add` असंगत बताकर मना करता है।** peer रेंज `0.1.x` और `0.2.x` दोनों को कवर करती है; यदि आपका रनटाइम उसके बाहर है तो स्पष्ट छूट दें: `dsh plugin --profile <name> allow-version dsh-sop-sync-check@0.2.11 --dsh-version <runtime> --accept-risk`।
 - **कोई नियम नहीं चला।** `skipped` सरणी पढ़ें: वह नियम id और कारण बताती है।
 - **`SS-003` स्वयं को छोड़ा हुआ बताता है।** न उद्धृत संस्करण पढ़ा जा सका न दस्तावेज़ का वर्तमान संस्करण। रजिस्टर में वर्तमान संस्करण का अलग कॉलम जोड़ें (पाठक दस्तावेज़ित उपनाम स्वीकार करता है), या संस्करण को उद्धरण-पाठ के अंत में `V2` की तरह लिखें।
 - **`SS-003` नहीं चलता जबकि मुझे पता है संस्करण अलग हैं।** कॉलम हल करने का क्रम देखें: `actualVersionField` पहला गैर-रिक्त उम्मीदवार लेता है, इसलिए पहले लिखा पुराना कॉलम बाद वाले को ढक देता है।

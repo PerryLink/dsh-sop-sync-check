@@ -11,6 +11,8 @@
 
 A reconciliation checker for process, quality, and document-control work: hand it one works-instruction register, and it compares it mechanically against a versioned rule pack, returning a list of differences you can point at row by row. It never edits the original, and it never rules on compliance.
 
+Last verified on DeepSeek Harness `dsh-v0.2.3-alpha.1` (2026-11-22).
+
 [Install](#three-step-setup) · [Configuration](#configuration) · [FAQ](#faq) · [简体中文](README.md) · [English](README.en.md) · [Español](README.es.md) · [Português](README.pt.md) · [हिन्दी](README.hi.md)
 
 [![License](https://img.shields.io/badge/license-Apache--2.0-3366CC?style=flat-square&labelColor=2B3245)](LICENSE)
@@ -57,7 +59,7 @@ material (JSON / YAML) ──▶ sop_sync_check ──▶ rules/sop-sync-check.y
    ```sh
    # git channel (latest main)
    dsh plugin --profile <name> add github:PerryLink/dsh-sop-sync-check
-   # npm channel (published release, currently 0.2.9)
+   # npm channel (published release, currently 0.2.11)
    dsh plugin --profile <name> add dsh-sop-sync-check
    # tarball channel: pnpm pack in this repo, then
    dsh plugin --profile <name> add ./dsh-sop-sync-check-<version>.tgz
@@ -290,7 +292,7 @@ The boundaries confirmed during verification, and the conclusions deliberately *
 ## Troubleshooting
 
 - **The plugin installs but the tool never appears.** Check that `main` resolves to `lib/index.mjs` and that `pnpm run build` produced it; a wrong `main` makes the loader skip the entry silently.
-- **`dsh plugin add` refuses the package as incompatible.** The peer range covers `0.1.x` and `0.2.x`; if your runtime sits outside it, grant an explicit exemption: `dsh plugin --profile <name> allow-version dsh-sop-sync-check@0.2.9 --dsh-version <runtime> --accept-risk`.
+- **`dsh plugin add` refuses the package as incompatible.** The peer range covers `0.1.x` and `0.2.x`; if your runtime sits outside it, grant an explicit exemption: `dsh plugin --profile <name> allow-version dsh-sop-sync-check@0.2.11 --dsh-version <runtime> --accept-risk`.
 - **A rule did not run.** Read the `skipped` array: it names the rule id and the reason.
 - **`SS-003` reports itself as skipped.** Neither the cited revision nor the document's current revision could be read. Give the register a dedicated current-revision column (the reader accepts the aliases documented above), or put the revision in the reference text as `V2`.
 - **`SS-003` does not fire although I know the revisions differ.** Check the column resolution order: `actualVersionField` takes the first non-empty candidate, so a stale column listed earlier will mask a later one.

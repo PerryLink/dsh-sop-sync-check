@@ -11,6 +11,8 @@
 
 面向工艺、质量与文件管理的核对工具：交一份作业规程台账，按版本化的规则库做机械比对，输出可逐条指认的差异清单；不改原件，不判合规。
 
+最近一次核验：DeepSeek Harness `dsh-v0.2.3-alpha.1`（2026-11-22）。
+
 [安装](#三步上手) · [配置](#配置) · [FAQ](#faq) · [简体中文](README.md) · [English](README.en.md) · [Español](README.es.md) · [Português](README.pt.md) · [हिन्दी](README.hi.md)
 
 [![License](https://img.shields.io/badge/license-Apache--2.0-3366CC?style=flat-square&labelColor=2B3245)](LICENSE)
@@ -61,7 +63,7 @@ dsh plugin --profile <name> add dsh-sop-sync-check
    ```sh
    # git 通道（最新 main）
    dsh plugin --profile <name> add github:PerryLink/dsh-sop-sync-check
-   # npm 通道（已发布版本，当前 0.2.9）
+   # npm 通道（已发布版本，当前 0.2.11）
    dsh plugin --profile <name> add dsh-sop-sync-check
    # tarball 通道：本仓库 pnpm pack 后
    dsh plugin --profile <name> add ./dsh-sop-sync-check-<version>.tgz
@@ -290,7 +292,7 @@ rows:
 ## 排错
 
 - **插件装上了但工具不出现**：确认 `main` 指向 `lib/index.mjs` 且 `pnpm run build` 已生成该文件；`main` 写错会让加载器静默跳过该条目。
-- **`dsh plugin add` 报版本不兼容**：peer 范围覆盖 `0.1.x` 与 `0.2.x`；若运行时在其之外，可显式豁免：`dsh plugin --profile <name> allow-version dsh-sop-sync-check@0.2.9 --dsh-version <runtime> --accept-risk`。
+- **`dsh plugin add` 报版本不兼容**：peer 范围覆盖 `0.1.x` 与 `0.2.x`；若运行时在其之外，可显式豁免：`dsh plugin --profile <name> allow-version dsh-sop-sync-check@0.2.11 --dsh-version <runtime> --accept-risk`。
 - **某条规则没有执行**：查看 `skipped` 数组，其中写明了规则 id 与原因。
 - **`SS-003` 报告自己进了 `skipped`**：引用版本与文件现行版本都取不到。给台账补一列 `PFMEA现行版本`，或把版本写进引用文本尾部（`V2`）。
 - **`SS-003` 明明版本不同却没报**：检查现行版本列的解析顺序——`actualVersionField` 取第一个非空候选，靠前的一个过期列会遮住后面的列。

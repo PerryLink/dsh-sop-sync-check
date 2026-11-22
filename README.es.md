@@ -11,6 +11,8 @@
 
 Una herramienta de conciliación para proceso, calidad y control documental: entrégale un registro de instrucciones de trabajo y lo compara mecánicamente con un paquete de reglas versionado, devolviendo una lista de diferencias señalables fila por fila. No modifica el original ni dictamina cumplimiento.
 
+Última verificación: DeepSeek Harness `dsh-v0.2.3-alpha.1` (2026-11-22).
+
 [Instalación](#instalación-en-tres-pasos) · [Configuración](#configuración) · [FAQ](#faq) · [简体中文](README.md) · [English](README.en.md) · [Español](README.es.md) · [Português](README.pt.md) · [हिन्दी](README.hi.md)
 
 [![License](https://img.shields.io/badge/license-Apache--2.0-3366CC?style=flat-square&labelColor=2B3245)](LICENSE)
@@ -54,7 +56,6 @@ material (JSON / YAML) ──▶ sop_sync_check ──▶ rules/sop-sync-check.y
 
 *Repetición animada de una ejecución real registrada en este repositorio.*
 
-
 ## Instalación en tres pasos
 
 1. **Instalar** (elige un canal):
@@ -62,7 +63,7 @@ material (JSON / YAML) ──▶ sop_sync_check ──▶ rules/sop-sync-check.y
    ```sh
    # canal git (último main)
    dsh plugin --profile <name> add github:PerryLink/dsh-sop-sync-check
-   # canal npm (versión publicada; actualmente 0.2.9)
+   # canal npm (versión publicada; actualmente 0.2.11)
    dsh plugin --profile <name> add dsh-sop-sync-check
    # canal tarball: tras pnpm pack en este repositorio
    dsh plugin --profile <name> add ./dsh-sop-sync-check-<version>.tgz
@@ -291,7 +292,7 @@ Los límites verificados y las conclusiones deliberadamente **no** afirmadas est
 ## Solución de problemas
 
 - **El plugin se instala pero la herramienta no aparece.** Compruebe que `main` resuelve a `lib/index.mjs` y que `pnpm run build` lo generó; un `main` erróneo hace que el cargador omita la entrada en silencio.
-- **`dsh plugin add` rechaza el paquete como incompatible.** El rango de peers cubre `0.1.x` y `0.2.x`; si su runtime queda fuera, conceda una exención explícita: `dsh plugin --profile <name> allow-version dsh-sop-sync-check@0.2.9 --dsh-version <runtime> --accept-risk`.
+- **`dsh plugin add` rechaza el paquete como incompatible.** El rango de peers cubre `0.1.x` y `0.2.x`; si su runtime queda fuera, conceda una exención explícita: `dsh plugin --profile <name> allow-version dsh-sop-sync-check@0.2.11 --dsh-version <runtime> --accept-risk`.
 - **Una regla no se ejecutó.** Lea el arreglo `skipped`: indica el id de la regla y el motivo.
 - **`SS-003` se informa a sí misma como omitida.** No se pudo leer ni la revisión citada ni la vigente del documento. Añada al registro una columna propia de revisión vigente (el lector acepta los alias documentados) o escriba la revisión al final del texto de la referencia como `V2`.
 - **`SS-003` no salta aunque sé que las revisiones difieren.** Revise el orden de resolución de columnas: `actualVersionField` toma el primer candidato no vacío, así que una columna obsoleta colocada antes oculta otra posterior.
