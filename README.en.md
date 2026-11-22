@@ -7,6 +7,8 @@
 
 # dsh-sop-sync-check
 
+Current version `0.2.12`.
+
 **Line up a works-instruction register with the PFMEA and control plan it cites — and get told which row, which column, and what differs.**
 
 A reconciliation checker for process, quality, and document-control work: hand it one works-instruction register, and it compares it mechanically against a versioned rule pack, returning a list of differences you can point at row by row. It never edits the original, and it never rules on compliance.
